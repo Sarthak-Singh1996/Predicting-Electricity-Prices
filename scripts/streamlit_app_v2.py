@@ -191,7 +191,6 @@ y_train_scaled = y_scaler.transform(np.log(y_train+ epsilon))
 y_test_scaled = y_scaler.transform(np.log(y_test+ epsilon))
 y_val_scaled = y_scaler.transform(np.log(y_val+ epsilon))
 
-
 #building model
 def build_model():
     input_shape = X_train.shape[1:]
@@ -199,17 +198,15 @@ def build_model():
 
     print(input_shape)
     print(output_shape)
-    #reg = regularizers.l1_l2(l1=0.04, l2=0.02)
 
     model_LSTM = Sequential()
-    model_LSTM.add(LSTM(units=200, return_sequences=True, input_shape=input_shape))
-    model_LSTM.add(LSTM(units=150, return_sequences=True))
-    model_LSTM.add(LSTM(units=150, return_sequences=True))
-    model_LSTM.add(LSTM(units=150, return_sequences=False))
-    model_LSTM.add(Dense(units=output_shape, activation='linear'))
+    model_LSTM.add(LSTM(units=200, return_sequences=True, input_shape=input_shape, name='lstm_1'))
+    model_LSTM.add(LSTM(units=150, return_sequences=True, name='lstm_2'))
+    model_LSTM.add(LSTM(units=150, return_sequences=True, name='lstm_3'))
+    model_LSTM.add(LSTM(units=150, return_sequences=False, name='lstm_4'))
+    model_LSTM.add(Dense(units=output_shape, activation='linear', name='dense'))
 
     model_LSTM.summary()
-    return model_LSTM
 
 model_LSTM = build_model()
 
